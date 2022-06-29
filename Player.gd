@@ -18,5 +18,13 @@ func _physics_process(delta):
 		if Input.is_action_pressed("left"):
 			motion.x -= 1
 		
+		if Input.is_action_just_pressed("space"):
+			moveSpeed = moveSpeed * 2
+		
+		if Input.is_action_just_released("space"):
+			moveSpeed = 250
+		
 		motion - motion.normalized()
 		motion = move_and_slide(motion * moveSpeed)
+		
+		look_at(get_global_mouse_position())
