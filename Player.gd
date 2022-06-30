@@ -46,7 +46,18 @@ func fire():
 	var bullet_inst = bullet.instance()
 	bullet_inst.position = get_global_position()
 	bullet_inst.rotation_degrees = rotation_degrees
-	bullet_inst.apply_impulse(Vector2(),Vector2(bulletSpeed,0).rotated(rotation))
+	bullet_inst.apply_impulse(Vector2(),Vector2(bulletSpeed,1).rotated(rotation))
 	get_tree().get_root().call_deferred("add_child",bullet_inst)
 	
+func kill():
+	get_tree().reload_current_scene()
 	
+func powerup():
+	for x in 5:
+		fire()
+
+func _on_Area2D_body_entered(body):
+	if "Enemy" in body.name:
+		kill()
+	if "PowerUp" in body.name:
+		powerup()
